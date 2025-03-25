@@ -24,7 +24,7 @@ resource "aws_instance" "this" {
 
   iam_instance_profile        = "AmazonSSMRoleForInstancesQuickSetup"
   associate_public_ip_address = false
-  key_name                    = var.key_pair_name
+  key_name                    = local.key_pair_name
   subnet_id                   = random_shuffle.subnet.result[0]
   monitoring                  = true
 

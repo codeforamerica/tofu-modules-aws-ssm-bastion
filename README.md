@@ -9,6 +9,8 @@ instance to the internet.
 
 ## Usage
 
+[//]: # (TODO: Add instructions to create key pair)
+
 Add this module to your `main.tf` (or appropriate) file and configure the inputs
 to match your desired configuration. For example:
 
@@ -16,8 +18,11 @@ to match your desired configuration. For example:
 module "bastion" {
   source = "github.com/codeforamerica/tofu-modules-aws-ssm-bastion?ref=1.0.0"
 
-  project = "my-project"
-  environment = "development"
+  project            = "my-project"
+  environment        = "development"
+  key_pair_name      = "my-project-development-bastion"
+  private_subnet_ids = module.vpc.private_subnets
+  vpc_id             = module.vpc.vpc_id
 }
 ```
 
@@ -34,23 +39,30 @@ To update the source for this module, pass `-upgrade` to `tofu init`:
 tofu init -upgrade
 ```
 
+## Connecting
+
+[//]: # (TODO: Add instructions for connecting and port forwarding)
+
 ## Inputs
 
-[//]: # (TODO: Replace the following with your own inputs)
-
-| Name        | Description                                   | Type     | Default | Required |
-|-------------|-----------------------------------------------|----------|---------|----------|
-| project     | Name of the project.                          | `string` | n/a     | yes      |
-| environment | Environment for the project.                  | `string` | `"dev"` | no       |
-| tags        | Optional tags to be applied to all resources. | `list`   | `[]`    | no       |
+| Name                    | Description                                                                                        | Type     | Default      | Required |
+|-------------------------|----------------------------------------------------------------------------------------------------|----------|--------------|----------|
+| private_subnet_ids      | The IDs of the private subnets in which the bastion host should be deployed.                       | `string` | n/a          | yes      |
+| project                 | Name of the project.                                                                               | `string` | n/a          | yes      |
+| vpc_id                  | The ID of the VPC in which the bastion host should be deployed.                                    | `string` | n/a          | yes      |
+| environment             | Environment for the project.                                                                       | `string` | `"dev"`      | no       |
+| instance_type           | The instance type to use for the bastion host.                                                     | `string` | `"t2.micro"` | no       |
+| key_pair_name           | Name of the EC2 keypair to associate with the instance. Defaults to "project-environment-bastion". | `string` | `""`         | no       |
+| kms_key_recovery_period | Recovery period for deleted KMS keys in days. Must be between 7 and 30.                            | `number` | `30`         | no       |
+| tags                    | Optional tags to be applied to all resources.                                                      | `list`   | `[]`         | no       |
 
 ## Outputs
 
 [//]: # (TODO: Replace the following with your own outputs)
 
-| Name     | Description                       | Type     |
-|----------|-----------------------------------|----------|
-| id       | Id of the newly created resource. | `string` |
+| Name        | Description                 | Type     |
+|-------------|-----------------------------|----------|
+| instance_id | ID of the bastion instance. | `string` |
 
 
 ## Contributing
