@@ -175,10 +175,10 @@ Follow the [contributing guidelines][contributing] to contribute to this module.
 
 [badge-checks]: https://github.com/codeforamerica/tofu-modules-aws-ssm-bastion/actions/workflows/main.yaml/badge.svg
 [badge-release]: https://img.shields.io/github/v/release/codeforamerica/tofu-modules-aws-ssm-bastion?logo=github&label=Latest%20Release
-[code-checks]: https://github.com/codeforamerica/tofu-modules-template/actions/workflows/main.yaml
+[code-checks]: https://github.com/codeforamerica/tofu-modules-aws-ssm-bastion/actions/workflows/main.yaml
 [contributing]: CONTRIBUTING.md
 [key_pair_name]: #key_pair_name
-[latest-release]: https://github.com/codeforamerica/tofu-modules-template/releases/latest
+[latest-release]: https://github.com/codeforamerica/tofu-modules-aws-ssm-bastion/releases/latest
 [start-a-session]: https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html
 [start-session]: https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/start-session.html
 [tofu-modules]: https://github.com/codeforamerica/tofu-modules
