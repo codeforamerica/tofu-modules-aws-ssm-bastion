@@ -173,8 +173,8 @@ users. If you chose a different key name, you must provide it as the value to
 
 Follow the [contributing guidelines][contributing] to contribute to this module.
 
-[badge-checks]: https://github.com/codeforamerica/tofu-modules-template/actions/workflows/main.yaml/badge.svg
-[badge-release]: https://img.shields.io/github/v/release/codeforamerica/tofu-modules-template?logo=github&label=Latest%20Release
+[badge-checks]: https://github.com/codeforamerica/tofu-modules-aws-ssm-bastion/actions/workflows/main.yaml/badge.svg
+[badge-release]: https://img.shields.io/github/v/release/codeforamerica/tofu-modules-aws-ssm-bastion?logo=github&label=Latest%20Release
 [code-checks]: https://github.com/codeforamerica/tofu-modules-template/actions/workflows/main.yaml
 [contributing]: CONTRIBUTING.md
 [key_pair_name]: #key_pair_name
