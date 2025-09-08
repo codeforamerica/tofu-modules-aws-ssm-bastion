@@ -22,7 +22,7 @@ resource "aws_instance" "this" {
 
   vpc_security_group_ids = [module.security_group.security_group_id]
 
-  iam_instance_profile        = "AmazonSSMRoleForInstancesQuickSetup"
+  iam_instance_profile        = var.instance_profile
   associate_public_ip_address = false
   key_name                    = local.key_pair_name
   subnet_id                   = random_shuffle.subnet.result[0]

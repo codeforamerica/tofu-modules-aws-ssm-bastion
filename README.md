@@ -22,6 +22,7 @@ module "bastion" {
 
   project            = "my-project"
   environment        = "development"
+  instance_profile   = "AmazonSSMRoleForInstancesQuickSetup"
   key_pair_name      = "my-project-development-bastion"
   private_subnet_ids = module.vpc.private_subnets
   vpc_id             = module.vpc.vpc_id
@@ -114,16 +115,23 @@ ssh -i $HOME/.ssh/my-project-development-bastion.pem -L 9999:google.com:443 i-0a
 
 ## Inputs
 
-| Name                    | Description                                                                                              | Type     | Default      | Required |
-|-------------------------|----------------------------------------------------------------------------------------------------------|----------|--------------|----------|
-| private_subnet_ids      | The IDs of the private subnets in which the bastion host should be deployed.                             | `string` | n/a          | yes      |
-| project                 | Name of the project.                                                                                     | `string` | n/a          | yes      |
-| vpc_id                  | The ID of the VPC in which the bastion host should be deployed.                                          | `string` | n/a          | yes      |
-| environment             | Environment for the project.                                                                             | `string` | `"dev"`      | no       |
-| instance_type           | The instance type to use for the bastion host.                                                           | `string` | `"t2.micro"` | no       |
-| [key_pair_name]         | Name of the EC2 keypair to associate with the instance. Defaults to `${project}-${environment}-bastion`. | `string` | `""`         | no       |
-| kms_key_recovery_period | Recovery period for deleted KMS keys in days. Must be between 7 and 30.                                  | `number` | `30`         | no       |
-| tags                    | Optional tags to be applied to all resources.                                                            | `list`   | `[]`         | no       |
+> [!WARNING]
+> The `instance_profile` option will default to `null` in the next major release.
+> If you are using this module and wish to maintain the current behavior, you
+> must explicitly add `instance_profile = "AmazonSSMRoleForInstancesQuickSetup"`
+> to your configuration.
+
+| Name                    | Description                                                                                                                               | Type     | Default                                 | Required |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------|-----------------------------------------|----------|
+| private_subnet_ids      | The IDs of the private subnets in which the bastion host should be deployed.                                                              | `string` | n/a                                     | yes      |
+| project                 | Name of the project.                                                                                                                      | `string` | n/a                                     | yes      |
+| vpc_id                  | The ID of the VPC in which the bastion host should be deployed.                                                                           | `string` | n/a                                     | yes      |
+| environment             | Environment for the project.                                                                                                              | `string` | `"dev"`                                 | no       |
+| instance_profile        | The name of the IAM instance profile to associate with the bastion host. Set to `null` to use [default host management][host-management]. | `string` | `"AmazonSSMRoleForInstancesQuickSetup"` | no       |
+| instance_type           | The instance type to use for the bastion host.                                                                                            | `string` | `"t2.micro"`                            | no       |
+| [key_pair_name]         | Name of the EC2 keypair to associate with the instance. Defaults to `${project}-${environment}-bastion`.                                  | `string` | `""`                                    | no       |
+| kms_key_recovery_period | Recovery period for deleted KMS keys in days. Must be between 7 and 30.                                                                   | `number` | `30`                                    | no       |
+| tags                    | Optional tags to be applied to all resources.                                                                                             | `list`   | `[]`                                    | no       |
 
 ### key_pair_name
 
@@ -177,6 +185,7 @@ Follow the [contributing guidelines][contributing] to contribute to this module.
 [badge-release]: https://img.shields.io/github/v/release/codeforamerica/tofu-modules-aws-ssm-bastion?logo=github&label=Latest%20Release
 [code-checks]: https://github.com/codeforamerica/tofu-modules-aws-ssm-bastion/actions/workflows/main.yaml
 [contributing]: CONTRIBUTING.md
+[host-management]: https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet-manager-default-host-management-configuration.html
 [key_pair_name]: #key_pair_name
 [latest-release]: https://github.com/codeforamerica/tofu-modules-aws-ssm-bastion/releases/latest
 [start-a-session]: https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html
