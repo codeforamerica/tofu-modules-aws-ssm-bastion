@@ -4,6 +4,12 @@ variable "environment" {
   default     = "development"
 }
 
+variable "instance_profile" {
+  description = "The name of the IAM instance profile to associate with the bastion host. Set to null to use default host management."
+  type        = string
+  default     = "AmazonSSMRoleForInstancesQuickSetup"
+}
+
 variable "instance_type" {
   description = "The instance type to use for the bastion host."
   type        = string
